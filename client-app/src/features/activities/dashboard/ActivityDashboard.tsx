@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import ActivityList from './ActivityList';
 import ActivityStore from '../../../app/stores/activityStore';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { observer } from 'mobx-react-lite';
 
 const ActivityDashboard: React.FC = () => {
   const activityStore = useContext(ActivityStore);
@@ -26,4 +27,4 @@ const ActivityDashboard: React.FC = () => {
   );
 };
 
-export default ActivityDashboard;
+export default observer(ActivityDashboard);
