@@ -2,6 +2,7 @@ import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { IActivity } from '../models/activity';
 import agent from '../api/agent';
+import { history } from '../..';
 
 configure({ enforceActions: 'always' });
 
@@ -59,15 +60,19 @@ class ActivityStore {
     let activity = this.getActivity(id);
     if (activity) {
       this.selectedActivity = activity;
+      return activity;
     } else {
       this.loadingInitial = true;
       try {
-        activity = await agent.Activities.details(id);
+        let activity = await agent.Activities.details(id);
         runInAction('getting activity details', () => {
-          activity.data = new Date(activity.data);
+          activity.date = new Date(activity.date);
           this.selectedActivity = activity;
+          this.activityRegistry.set(activity.id, activity);
           this.loadingInitial = false;
         });
+
+        return activity;
       } catch (error) {
         runInAction('get activity details error', () => {
           this.loadingInitial = false;
@@ -77,7 +82,7 @@ class ActivityStore {
     }
   };
 
-  getActivity = (id: string) => {
+  getActivity = (id: string): IActivity | undefined => {
     return this.activityRegistry.get(id);
   };
 
@@ -94,6 +99,7 @@ class ActivityStore {
         this.activityRegistry.set(activity.id, activity);
         this.submitting = false;
       });
+      history.push(`/activities/${activity.id}`);
     } catch (error) {
       console.error(error);
       runInAction('create activity error', () => {
@@ -111,6 +117,7 @@ class ActivityStore {
         this.selectedActivity = activity;
         this.submitting = false;
       });
+      history.push(`/activities/${activity.id}`);
     } catch (error) {
       console.error(error);
       runInAction('edit activity error', () => {
