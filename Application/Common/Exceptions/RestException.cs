@@ -10,7 +10,7 @@ namespace Application.Common.Exceptions
 
         public RestException(HttpStatusCode code)
         {
-            code = Code;
+            Code = code;
         }
         
         public RestException(HttpStatusCode code, object errors)

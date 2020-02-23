@@ -42,7 +42,7 @@ namespace API
             {
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
                 });
             });
 
@@ -69,7 +69,7 @@ namespace API
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = key,
-                        
+
                         ValidateAudience = false,
                         ValidateIssuer = false
                     };
@@ -83,7 +83,7 @@ namespace API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            
+
             if (env.IsDevelopment())
             {
                 // app.UseDeveloperExceptionPage();

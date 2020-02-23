@@ -22,9 +22,6 @@ export class ActivityFormValues implements IActivityFormValues {
   city: string = '';
   venue: string = '';
 
-  /**
-   *
-   */
   constructor(init?: IActivityFormValues) {
     if (init && init.date) {
       this.time = init.date;
