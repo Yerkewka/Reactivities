@@ -2,6 +2,7 @@
 using API.Common.Middlewares;
 using Application.Activities;
 using Application.Common.Interfaces;
+using AutoMapper;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure.Security;
@@ -35,6 +36,7 @@ namespace API
         {
             services.AddDbContext<DataContext>(opt =>
             {
+                opt.UseLazyLoadingProxies();
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
@@ -47,6 +49,7 @@ namespace API
             });
 
             services.AddMediatR(typeof(Application.Activities.List.Handler).Assembly);
+            services.AddAutoMapper(typeof(Application.Activities.List.Handler).Assembly);
 
             services.AddMvc(opt =>
                 {
@@ -61,6 +64,12 @@ namespace API
             identityBuilder.AddEntityFrameworkStores<DataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("IsActivityHost", policy => { policy.Requirements.Add(new IsHostRequirement()); });
+            });
+            services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
+            
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
