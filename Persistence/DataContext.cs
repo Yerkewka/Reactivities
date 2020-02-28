@@ -14,10 +14,12 @@ namespace Persistence
         public DbSet<Activity> Activities { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+
             builder.Entity<Value>()
                 .HasData(
                     new Value { Id = 1, Name = "Value 101" },
@@ -26,13 +28,13 @@ namespace Persistence
                 );
 
             builder.Entity<UserActivity>(x => x.HasKey(ua =>
-                new {ua.AppUserId, ua.ActivityId}));
+                new { ua.AppUserId, ua.ActivityId }));
 
             builder.Entity<UserActivity>(x => x
                     .HasOne(ua => ua.AppUser)
                     .WithMany(u => u.UserActivities)
                     .HasForeignKey(ua => ua.AppUserId));
-            
+
             builder.Entity<UserActivity>(x => x
                 .HasOne(ua => ua.Activity)
                 .WithMany(a => a.UserActivities)

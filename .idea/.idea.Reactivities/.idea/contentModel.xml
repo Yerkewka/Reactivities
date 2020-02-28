@@ -19,6 +19,8 @@
         <e p="Controllers" t="Include">
           <e p="ActivitiesController.cs" t="Include" />
           <e p="BaseController.cs" t="Include" />
+          <e p="PhotosController.cs" t="Include" />
+          <e p="ProfilesController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -64,6 +66,7 @@
           </e>
           <e p="Interfaces" t="Include">
             <e p="IJwtGenerator.cs" t="Include" />
+            <e p="IPhotoAccessor.cs" t="Include" />
             <e p="IUserAccessor.cs" t="Include" />
           </e>
         </e>
@@ -73,6 +76,16 @@
               <e p="Application.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
+        </e>
+        <e p="Photos" t="Include">
+          <e p="Add.cs" t="Include" />
+          <e p="Delete.cs" t="Include" />
+          <e p="PhotoUploadResult.cs" t="Include" />
+          <e p="SetMain.cs" t="Include" />
+        </e>
+        <e p="Profiles" t="Include">
+          <e p="Details.cs" t="Include" />
+          <e p="Profile.cs" t="Include" />
         </e>
         <e p="Users" t="Include">
           <e p="CurrentUser.cs" t="Include" />
@@ -93,6 +106,7 @@
             </e>
           </e>
         </e>
+        <e p="Photo.cs" t="Include" />
         <e p="UserActivity.cs" t="Include" />
         <e p="Value.cs" t="Include" />
       </e>
@@ -105,6 +119,10 @@
               <e p="Infrastructure.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
+        </e>
+        <e p="Photos" t="Include">
+          <e p="CloudinarySettings.cs" t="Include" />
+          <e p="PhotoAccessor.cs" t="Include" />
         </e>
         <e p="Security" t="Include">
           <e p="IsHostRequirement.cs" t="Include" />
@@ -127,6 +145,8 @@
           <e p="20200216094213_AddedIdentity.Designer.cs" t="Include" />
           <e p="20200223170900_UserActivityAdded.cs" t="Include" />
           <e p="20200223170900_UserActivityAdded.Designer.cs" t="Include" />
+          <e p="20200226175904_PhotoEntityAdded.cs" t="Include" />
+          <e p="20200226175904_PhotoEntityAdded.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
