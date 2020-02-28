@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Common.Exceptions;
@@ -60,7 +61,7 @@ namespace Application.Users
                         DisplayName = user.DisplayName,
                         Username = user.UserName,
                         Token = _jwtGenerator.CreateToken(user),
-                        Image = null
+                        Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
                     };
                 }
                 

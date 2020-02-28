@@ -1,4 +1,5 @@
-﻿using Application.Activities.Dto;
+﻿using System.Linq;
+using Application.Activities.Dto;
 using AutoMapper;
 using Domain;
 
@@ -13,7 +14,9 @@ namespace Application.Activities.Mappings
                 .ForMember(d => d.Username, o =>
                     o.MapFrom(s => s.AppUser.UserName))
                 .ForMember(d => d.DisplayName, o =>
-                    o.MapFrom(s => s.AppUser.DisplayName));
+                    o.MapFrom(s => s.AppUser.DisplayName))
+                .ForMember(d => d.Image, o => 
+                    o.MapFrom(s => s.AppUser.Photos.FirstOrDefault(x => x.IsMain).Url));
         }
     }
 }
