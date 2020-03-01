@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Application.Comments.Dto;
 using Newtonsoft.Json;
 
 namespace Application.Activities.Dto
@@ -13,8 +14,10 @@ namespace Application.Activities.Dto
         public DateTime Date { get; set; }
         public string City { get; set; }
         public string Venue { get; set; }
-        
+
         [JsonProperty("attendees")]
         public ICollection<AttendeeDto> UserActivities { get; set; }
+
+        public ICollection<CommentDto> Comments { get; set; }
     }
 }
