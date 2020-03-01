@@ -9,6 +9,7 @@ import { Container } from 'semantic-ui-react';
 import Navbar from '../../features/nav/Navbar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import HomePage from '../../features/home/HomePage';
+import ProfilePage from '../../features/profiles/ProfilePage';
 import ActivityForm from '../../features/activities/form/ActivityForm';
 import ActivityDetails from '../../features/activities/details/ActivityDetails';
 import NotFound from './NotFound';
@@ -56,6 +57,11 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={['/createActivity', '/manage/:id']}
                   key={location.key}
                   component={ActivityForm}
+                />
+                <Route
+                  exact
+                  path="/profile/:username"
+                  component={ProfilePage}
                 />
                 <Route component={NotFound} />
               </Switch>
