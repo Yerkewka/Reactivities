@@ -103,4 +103,27 @@ export default class ProfileStore {
       });
     }
   };
+
+  @action editProfile = async (profile: Partial<IProfile>) => {
+    this.loading = true;
+
+    try {
+      await agent.Profiles.editProfile(profile);
+      runInAction(() => {
+        if (
+          profile.displayName !== this.rootStore.userStore.user!.displayName
+        ) {
+          this.rootStore.userStore.user!.displayName = profile.displayName!;
+        }
+        this.profile = { ...this.profile!, ...profile };
+
+        this.loading = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.loading = false;
+      });
+      throw error;
+    }
+  };
 }
