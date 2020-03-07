@@ -2,7 +2,7 @@
 
 namespace Application.Profiles.Dto
 {
-    public class UserActivitiesDto
+    public class UserActivityDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

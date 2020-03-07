@@ -19,6 +19,7 @@
         <e p="Controllers" t="Include">
           <e p="ActivitiesController.cs" t="Include" />
           <e p="BaseController.cs" t="Include" />
+          <e p="FollowersController.cs" t="Include" />
           <e p="PhotosController.cs" t="Include" />
           <e p="ProfilesController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
@@ -36,6 +37,9 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="reactivities.db" t="Include" />
+        <e p="SignalR" t="Include">
+          <e p="ChatHub.cs" t="Include" />
+        </e>
         <e p="Startup.cs" t="Include" />
       </e>
       <e p="Application" t="IncludeRecursive">
@@ -53,10 +57,22 @@
           <e p="Mappings" t="Include">
             <e p="MappingProfile.cs" t="Include" />
           </e>
+          <e p="Resolvers" t="Include">
+            <e p="FollowingResolver.cs" t="Include" />
+          </e>
           <e p="Unattend.cs" t="Include" />
         </e>
         <e p="Application.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Comments" t="Include">
+          <e p="Create.cs" t="Include" />
+          <e p="Dto" t="Include">
+            <e p="CommentDto.cs" t="Include" />
+          </e>
+          <e p="Mappings" t="Include">
+            <e p="MappingProfile.cs" t="Include" />
+          </e>
+        </e>
         <e p="Common" t="Include">
           <e p="Exceptions" t="Include">
             <e p="RestException.cs" t="Include" />
@@ -67,8 +83,14 @@
           <e p="Interfaces" t="Include">
             <e p="IJwtGenerator.cs" t="Include" />
             <e p="IPhotoAccessor.cs" t="Include" />
+            <e p="IProfileReader.cs" t="Include" />
             <e p="IUserAccessor.cs" t="Include" />
           </e>
+        </e>
+        <e p="Followers" t="Include">
+          <e p="Add.cs" t="Include" />
+          <e p="Delete.cs" t="Include" />
+          <e p="List.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -85,7 +107,13 @@
         </e>
         <e p="Profiles" t="Include">
           <e p="Details.cs" t="Include" />
+          <e p="Dto" t="Include">
+            <e p="UserActivityDto.cs" t="Include" />
+          </e>
+          <e p="Edit.cs" t="Include" />
+          <e p="ListActivities.cs" t="Include" />
           <e p="Profile.cs" t="Include" />
+          <e p="ProfileReader.cs" t="Include" />
         </e>
         <e p="Users" t="Include">
           <e p="CurrentUser.cs" t="Include" />
@@ -98,6 +126,7 @@
         <e p="Activity.cs" t="Include" />
         <e p="AppUser.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Comment.cs" t="Include" />
         <e p="Domain.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -108,6 +137,7 @@
         </e>
         <e p="Photo.cs" t="Include" />
         <e p="UserActivity.cs" t="Include" />
+        <e p="UserFollowing.cs" t="Include" />
         <e p="Value.cs" t="Include" />
       </e>
       <e p="Infrastructure" t="IncludeRecursive">
@@ -147,6 +177,10 @@
           <e p="20200223170900_UserActivityAdded.Designer.cs" t="Include" />
           <e p="20200226175904_PhotoEntityAdded.cs" t="Include" />
           <e p="20200226175904_PhotoEntityAdded.Designer.cs" t="Include" />
+          <e p="20200301175810_AddedCommentEntity.cs" t="Include" />
+          <e p="20200301175810_AddedCommentEntity.Designer.cs" t="Include" />
+          <e p="20200302160414_AddedFollowingEntity.cs" t="Include" />
+          <e p="20200302160414_AddedFollowingEntity.Designer.cs" t="Include" />
           <e p="DataContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
