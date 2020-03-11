@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { IUser, IUserFormValues } from '../models/user';
 import { IProfile, IPhoto } from '../models/profile';
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
   config => {
@@ -25,10 +25,18 @@ axios.interceptors.response.use(undefined, error => {
     toast.error('Network error - make sure API is running!');
   }
 
-  const { data, config, status } = error.response;
+  const { data, config, status, headers } = error.response;
 
   if (status === 404) {
     history.push('/notfound');
+  } else if (
+    status === 401 &&
+    headers['www-authenticate'] ===
+      'Bearer error="invalid_token", error_description="The token is expired"'
+  ) {
+    window.localStorage.removeItem('jwt');
+    history.push('/');
+    toast.info('Your session has been exprired, please login again');
   } else if (
     status === 400 &&
     config.method === 'get' &&
@@ -44,32 +52,11 @@ axios.interceptors.response.use(undefined, error => {
 
 const responseBody = (response: AxiosResponse) => response?.data;
 
-const sleep = (ms: number) => (response: AxiosResponse) =>
-  new Promise<AxiosResponse>(resolve =>
-    setTimeout(() => resolve(response), ms)
-  );
-
 const requests = {
-  get: (url: string) =>
-    axios
-      .get(url)
-      .then(sleep(1000))
-      .then(responseBody),
-  post: (url: string, body: {}) =>
-    axios
-      .post(url, body)
-      .then(sleep(1000))
-      .then(responseBody),
-  put: (url: string, body: {}) =>
-    axios
-      .put(url, body)
-      .then(sleep(1000))
-      .then(responseBody),
-  delete: (url: string) =>
-    axios
-      .delete(url)
-      .then(sleep(1000))
-      .then(responseBody),
+  get: (url: string) => axios.get(url).then(responseBody),
+  post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
+  put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
+  delete: (url: string) => axios.delete(url).then(responseBody),
   postForm: (url: string, file: Blob, key: string) => {
     const formData = new FormData();
     formData.append(key, file);
@@ -80,10 +67,7 @@ const requests = {
 
 const Activities = {
   list: (params: URLSearchParams): Promise<IActivitiesEnvelope> =>
-    axios
-      .get('/activities', { params })
-      .then(sleep(1000))
-      .then(responseBody),
+    axios.get('/activities', { params }).then(responseBody),
   details: (id: string): Promise<IActivity> =>
     requests.get(`/activities/${id}`),
   create: (activity: IActivity) => requests.post('/activities', activity),

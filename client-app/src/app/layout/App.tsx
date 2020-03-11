@@ -18,6 +18,7 @@ import { RootStoreContext } from '../stores/rootStore';
 import LoadingComponent from './LoadingComponent';
 import { observer } from 'mobx-react-lite';
 import ModalContainer from '../common/modals/ModalContainer';
+import PrivateRoute from './PrivateRoute';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -46,19 +47,23 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <Navbar />
             <Container style={{ marginTop: '7em' }}>
               <Switch>
-                <Route exact path="/activities" component={ActivityDashboard} />
-                <Route
+                <PrivateRoute
+                  exact
+                  path="/activities"
+                  component={ActivityDashboard}
+                />
+                <PrivateRoute
                   exact
                   path="/activities/:id"
                   component={ActivityDetails}
                 />
-                <Route
+                <PrivateRoute
                   exact
                   path={['/createActivity', '/manage/:id']}
                   key={location.key}
                   component={ActivityForm}
                 />
-                <Route
+                <PrivateRoute
                   exact
                   path="/profile/:username"
                   component={ProfilePage}

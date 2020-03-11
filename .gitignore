@@ -6,3 +6,4 @@ appsettings.json
 appsettings.Production.json
 *.db
 node_modules
+wwwroot
